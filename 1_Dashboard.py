@@ -36,6 +36,7 @@ def display_threat_info(threat_data):
     else:
         st.write("No threat detected.")
 
+# Make all buttons look bigger ***
 def load_custom_css():
     st.markdown("""
         <style>
@@ -80,14 +81,6 @@ def main():
     st.title("Dashboard")
     st.sidebar.success("Select a page above.")
 
-    resource = st.text_input("Enter URL/Domain/IP/File hash")
-
-    if st.button("Check Threat"):
-        with st.spinner('Fetching data from VirusTotal...'):
-            threat_data = query_virustotal(resource)
-            display_threat_info(threat_data)
-
-
     # Create a 3x3 grid of buttons
     # First row
     col1, col2, col3 = st.columns(3)
@@ -126,7 +119,21 @@ def main():
             st.write('Button 9 clicked')
 
 
+    resource = st.text_input("Enter URL/Domain/IP/File hash")
 
+    # Check for Enter key press to trigger the threat check
+    if resource and (st.session_state.enter_pressed or st.button("Check Threat")):
+        st.session_state.enter_pressed = False  # Reset enter_pressed
+        with st.spinner('Fetching data from VirusTotal...'):
+            threat_data = query_virustotal(resource)
+            display_threat_info(threat_data)
+    else:
+        st.session_state.enter_pressed = True  # Set enter_pressed when Enter key is pressed
+
+        #if st.button("Check Threat"):
+        #   with st.spinner('Fetching data from VirusTotal...'):
+        #        threat_data = query_virustotal(resource)
+        #        display_threat_info(threat_data)
 
 
 if __name__ == "__main__":
