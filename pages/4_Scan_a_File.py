@@ -1,37 +1,30 @@
 import streamlit as st
 
-# Set page configuration, this should be the first thing that occurs.
-st.set_page_config(
-    page_title="Threat Intelligence Dashboard",
-    page_icon="radar",
-    )
 
-# Set the title of the "Scan a URL" page
-st.title("Scan a File")
+def main():
+    # Set page configuration, this should be the first thing that occurs.
+    st.set_page_config(
+        page_title="Scan a File",
+        page_icon="📂",
+        initial_sidebar_state="collapsed"
+        )
 
-# Create the search bar to let the user enter a website.
-resource = st.text_input("Enter URL/Domain/IP/File hash")
+    # Create a button to take you back home.
+    if st.button("⬅"):
+        st.switch_page("1_Home.py")
 
-#if st.button("Check Threat"):
-#    with st.spinner('Fetching data from VirusTotal...'):
-#        threat_data = funk.query_virustotal(resource)
-#        funk.display_threat_info(threat_data)
-# Function to change the page
+    # Set the title of the "Scan a URL" page
+    st.title("Scan a File")
 
-# Set page configuration, this should be the first thing that occurs.
-st.set_page_config(
-    page_title="Threat Intelligence Dashboard",
-    page_icon="radar",
-    )
+    # Create the search bar to let the user enter a website.
+    user_input_file = st.file_uploader("Upload a file to begin.", help="Upload a file to scan it with Virustotal.")
 
-# Set the title of the "Scan a URL" page
-st.title("Scan a File")
+    st.write(user_input_file)
 
-# Create the search bar to let the user enter a website.
-resource = st.text_input("Enter URL/Domain/IP/File hash")
+    #if st.button("Check Threat"):
+    #    with st.spinner('Fetching data from VirusTotal...'):
+    #        threat_data = funk.query_virustotal(resource)
+    #        funk.display_threat_info(threat_data)
+    # Function to change the page
 
-#if st.button("Check Threat"):
-#    with st.spinner('Fetching data from VirusTotal...'):
-#        threat_data = funk.query_virustotal(resource)
-#        funk.display_threat_info(threat_data)
-# Function to change the page
+main()
